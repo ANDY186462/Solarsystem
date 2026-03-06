@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Planets/Planets.csproj" />
+  <Project Path="SpaceLib/SpaceLib.csproj" />
+</Solution>
