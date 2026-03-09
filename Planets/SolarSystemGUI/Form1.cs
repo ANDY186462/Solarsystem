@@ -15,7 +15,7 @@ namespace SolarSystemGUI
 
         List<Planet> planets = new List<Planet>();
 
-        double time = 100;
+        double time = 0;
 
         public Form1()
         {
@@ -50,7 +50,10 @@ namespace SolarSystemGUI
 
             g.FillEllipse(Brushes.Yellow, centerX - sunSize / 2, centerY - sunSize / 2, sunSize, sunSize);
 
-            double scale = 2;
+            double maxOrbitalRadius = neptune.OrbitalRadius;
+            double availableRadius = Math.Min(centerX, centerY) - 50;
+            double scale = availableRadius / maxOrbitalRadius;
+
 
             foreach (Planet planet in planets)
             {
