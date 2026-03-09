@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8C760688-DF03-3595-0F16-AD27338B62D3}|Planets\\Planets.csproj|c:\\users\\2004a\\hvl\\aar2\\vaar\\dat154\\solarsystem\\planets\\planets\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{8C760688-DF03-3595-0F16-AD27338B62D3}|Planets\\Planets.csproj|solutionrelative:planets\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\Planets\\.gitignore",
+              "RelativeDocumentMoniker": "Planets\\.gitignore",
+              "ToolTip": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\Planets\\.gitignore",
+              "RelativeToolTip": "Planets\\.gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-09T11:03:54.925Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
