@@ -11,8 +11,8 @@ namespace SpaceLib
             : base(name, objectRadius, rotationalPeriod, orbitalRadius, orbitalPeriod, color) { }
 
         public override void Draw()
-        {
-            Console.Write("AsteroidBelt: ");
+        { 
+            Console.Write("Asteroid Belt: ");
             base.Draw();
         }
     }
