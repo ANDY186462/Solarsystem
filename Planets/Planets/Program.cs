@@ -31,18 +31,69 @@ namespace SpaceSim
 			List<SpaceObject> solarsystem = new List<SpaceObject>() {theSun, mercury, venus, earth, theMoon, mars, jupiter, saturn, uranus, neptune, pluto, halley, ceresAsteroid, mainBelt };
 
 
-			double time = 100;
-			Console.WriteLine("Our solarsystem: ");
-			foreach (SpaceObject obj in solarsystem)
-			{
+			Console.Write("Enter amount of hours: ");
+			double time = double.Parse(Console.ReadLine());
 
-				obj.Draw();
-				var (x, y, degrees) = obj.CalculatePos(time);
-				Console.WriteLine($"Position at time={time}: , X={x:F2}, Y={y:F2}, Angle={degrees:F2}°");
-				Console.WriteLine("");
-			
+			Console.Write("Enter name of spaceobject: ");
+			string input = Console.ReadLine();
+
+
+			if (string.IsNullOrWhiteSpace(input))
+			{
+				foreach (SpaceObject obj in solarsystem)
+				{
+					if (obj is Star || obj is Planet || obj is Comet || obj is Asteroid || obj is AsteroidBelt)
+					{
+						obj.Draw();
+						var (x, y, degrees) = obj.CalculatePos(time);
+						Console.WriteLine($"Position at time={time}: , X={x:F2}, Y={y:F2}, Angle={degrees:F2}°");
+						Console.WriteLine();
+					}
+					Console.ReadLine();
+				}
 			}
-			Console.ReadLine();
+			else
+			{
+				{
+					SpaceObject selectedObject = null;
+
+					foreach (SpaceObject obj in solarsystem)
+					{
+						if (obj.Name.ToLower() == input.ToLower())
+						{
+							selectedObject = obj;
+							break;
+						}
+					}
+					if (selectedObject != null)
+					{
+						selectedObject.Draw();
+
+						var (x, y, degrees) = selectedObject.CalculatePos(time);
+						Console.WriteLine($"Position: X={x:F2}, Y={y:F2}, Angle={degrees:F2}");
+
+						Console.WriteLine("Moons: ");
+
+						foreach (SpaceObject obj in solarsystem)
+						{
+							if (obj is Moon moon && moon.ParentPlanet == selectedObject)
+							{
+								moon.Draw();
+
+								var (mx, my, mdegrees) = moon.CalculatePos(time);
+								Console.WriteLine($"Position: X={x:F2}, Y={y:F2}, Angle={degrees:F2}");
+							}
+						}
+					}
+					else
+					{
+						Console.WriteLine("Planet not found");
+
+					}
+
+				}
+
+			}
 		}
 	}
 }
