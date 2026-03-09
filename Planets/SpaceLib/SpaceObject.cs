@@ -31,10 +31,15 @@ namespace SpaceLib
 
 		public virtual (double x, double y, double degrees) CalculatePos(double time)
 		{
-			double angle = (2 * Math.PI / OrbitalPeriod) * time;
-			double degrees = angle * Math.PI / 180;
+			if (OrbitalPeriod == 0)
+			{
+				return (0, 0, 0);
+			}
 
-			double x = OrbitalRadius * Math.Cos(angle);
+			double angle = (2 * Math.PI / OrbitalPeriod) * time;
+			double degrees = angle * 180 / Math.PI;
+
+			double x = OrbitalRadius * Math.Cos(angle);	
 			double y = OrbitalRadius * Math.Sin(angle);
 
 			return (x, y, degrees);
