@@ -1,27 +1,28 @@
-# Visual Studio
+# Visual Studio folders
 .vs/
-*/.vs/
+**/.vs/
 
-# Build outputs
+# Build output folders
 bin/
 obj/
+**/bin/
+**/obj/
 
 # User-specific files
 *.user
 *.suo
 
-# Cache / database files
+# Caches / databases / indexes
 *.cache
 *.db
 *.opendb
 *.vsidx
 
-# Generated build metadata
-*AssemblyInfo.cs
-*.pdb
+# Generated binaries / symbols
 *.dll
-*.json
+*.pdb
 
-# Visual Studio indexing
-*.v10.bin
+# Generated metadata
+*AssemblyInfo.cs
 *.sourceLink.json
+DocumentLayout*.json

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SpaceLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a83376c960b6c20aefdff73ea546aec5d666449")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a1391c7c290f3566c49fd70d08d8bfdf52bdbba")]
 [assembly: System.Reflection.AssemblyProductAttribute("SpaceLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SpaceLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
