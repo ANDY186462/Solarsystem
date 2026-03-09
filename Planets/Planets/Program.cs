@@ -28,7 +28,7 @@ namespace SpaceSim
 			//Navn, RadiusObjekt, LengdePåDag(timer), AvstandFraSentrum(km), TilForFullRundeRundtSentrum, Farge
 			Moon theMoon = new Moon("The moon", 1737.4, 655.7, 0.384, 27.3, ConsoleColor.Gray, earth);
 
-			List<SpaceObject> solarsystem = new List<SpaceObject>() {theSun, mercury, venus, earth, theMoon, mars, jupiter, saturn, uranus, neptune, pluto, halley, ceresAsteroid, mainBelt };
+			List<SpaceObject> solarsystem = new List<SpaceObject>() { theSun, mercury, venus, earth, theMoon, mars, jupiter, saturn, uranus, neptune, pluto, halley, ceresAsteroid, mainBelt };
 
 
 			Console.Write("Enter amount of hours: ");
@@ -72,7 +72,10 @@ namespace SpaceSim
 						var (x, y, degrees) = selectedObject.CalculatePos(time);
 						Console.WriteLine($"Position: X={x:F2}, Y={y:F2}, Angle={degrees:F2}");
 
-						Console.WriteLine("Moons: ");
+						if (selectedObject is Planet)
+						{
+							Console.WriteLine("Moons: ");
+						}
 
 						foreach (SpaceObject obj in solarsystem)
 						{
@@ -81,19 +84,29 @@ namespace SpaceSim
 								moon.Draw();
 
 								var (mx, my, mdegrees) = moon.CalculatePos(time);
-								Console.WriteLine($"Position: X={x:F2}, Y={y:F2}, Angle={degrees:F2}");
+								Console.WriteLine($"Position: X={mx:F2}, Y={my:F2}, Angle={mdegrees:F2}");
 							}
 						}
 					}
 					else
 					{
-						Console.WriteLine("Planet not found");
+						Console.WriteLine("Object not found. Showing the Sun instead");
+							foreach (SpaceObject obj in solarsystem)
+							{
+								if (obj is Star)
+								{
+									obj.Draw();
+
+									var (x, y, degrees) = obj.CalculatePos(time);
+									Console.WriteLine($"Position at time={time}: X={x:F2}, Y={y:F2}, Angle={degrees:F2}°");
+									Console.WriteLine();
+								}
+							}
+						}
 
 					}
 
 				}
-
 			}
 		}
-	}
-}
+	} 
