@@ -4,7 +4,7 @@ using SpaceLib;
 
 namespace SpaceSim
 {
-	class Atronomy
+	class Astronomy
 	{
 		public static void Main(String[] args)
 		{
@@ -19,10 +19,16 @@ namespace SpaceSim
 			Planet saturn = new Planet("Saturn", 58232, 10.7, 1434, 10759, ConsoleColor.Yellow);
 			Planet uranus = new Planet("Uranus", 25362, -17.2, 2871, 30687, ConsoleColor.Cyan);
 			Planet neptune = new Planet("Neptune", 24622, 16.1, 4495, 60190, ConsoleColor.Blue);
+
+			Comet halley = new Comet("Halley's Comet", 11, 52.8, 2660, 27475, ConsoleColor.White);
+			Asteroid ceresAsteroid = new Asteroid("Vesta", 262.7, 5.3, 353, 1325, ConsoleColor.DarkGray);
+			AsteroidBelt mainBelt = new AsteroidBelt("Main Asteroid Belt", 0, 0, 414, 1680, ConsoleColor.DarkGray);
+			DwarfPlanet pluto = new DwarfPlanet("Pluto", 1188.3, 153.3, 5906, 90560, ConsoleColor.Gray);
+
 			//Navn, RadiusObjekt, LengdePåDag(timer), AvstandFraSentrum(km), TilForFullRundeRundtSentrum, Farge
 			Moon theMoon = new Moon("The moon", 1737.4, 655.7, 0.384, 27.3, ConsoleColor.Gray, earth);
 
-			List<SpaceObject> solarsystem = new List<SpaceObject>() {theSun, mercury, venus, earth, theMoon, mars, jupiter, saturn, uranus, neptune };
+			List<SpaceObject> solarsystem = new List<SpaceObject>() {theSun, mercury, venus, earth, theMoon, mars, jupiter, saturn, uranus, neptune, pluto, halley, ceresAsteroid, mainBelt };
 
 
 			double time = 100;

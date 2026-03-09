@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Planets")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54dbb4bc82f074e3bd2d84fe06d39800cc67452f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Planets")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Planets")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

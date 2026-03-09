@@ -16,3 +16,22 @@ C:\HVL - Informasjonsteknologi\var2026\DAT154\VisualStudio\Planets\Planets\bin\D
 C:\HVL - Informasjonsteknologi\var2026\DAT154\VisualStudio\Planets\Planets\bin\Debug\net10.0\SpaceLib.pdb
 C:\HVL - Informasjonsteknologi\var2026\DAT154\VisualStudio\Planets\Planets\obj\Debug\net10.0\Planets.csproj.AssemblyReference.cache
 C:\HVL - Informasjonsteknologi\var2026\DAT154\VisualStudio\Planets\Planets\obj\Debug\net10.0\Planets.csproj.Up2Date
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\bin\Debug\net10.0\Planets.exe
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\bin\Debug\net10.0\Planets.deps.json
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\bin\Debug\net10.0\Planets.runtimeconfig.json
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\bin\Debug\net10.0\Planets.dll
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\bin\Debug\net10.0\Planets.pdb
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\bin\Debug\net10.0\SpaceLib.dll
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\bin\Debug\net10.0\SpaceLib.pdb
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.csproj.AssemblyReference.cache
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.AssemblyInfoInputs.cache
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.AssemblyInfo.cs
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.csproj.CoreCompileInputs.cache
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.sourcelink.json
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.csproj.Up2Date
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.dll
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\refint\Planets.dll
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.pdb
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\Planets.genruntimeconfig.cache
+C:\Users\2004a\HVL\aar2\vaar\DAT154\Solarsystem\Planets\Planets\obj\Debug\net10.0\ref\Planets.dll

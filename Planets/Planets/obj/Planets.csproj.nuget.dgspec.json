@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\Planets\\Planets.csproj": {}
+    "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\Planets\\Planets.csproj": {}
   },
   "projects": {
-    "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\Planets\\Planets.csproj": {
+    "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\Planets\\Planets.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\Planets\\Planets.csproj",
+        "projectUniqueName": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\Planets\\Planets.csproj",
         "projectName": "Planets",
-        "projectPath": "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\Planets\\Planets.csproj",
-        "packagesPath": "C:\\Users\\Andreas\\.nuget\\packages\\",
-        "outputPath": "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\Planets\\obj\\",
+        "projectPath": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\Planets\\Planets.csproj",
+        "packagesPath": "C:\\Users\\2004a\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\Planets\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Andreas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\2004a\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,8 +33,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\SpaceLib\\SpaceLib.csproj": {
-                "projectPath": "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\SpaceLib\\SpaceLib.csproj"
+              "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\SpaceLib\\SpaceLib.csproj": {
+                "projectPath": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\SpaceLib\\SpaceLib.csproj"
               }
             }
           }
@@ -348,20 +348,20 @@
         }
       }
     },
-    "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\SpaceLib\\SpaceLib.csproj": {
+    "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\SpaceLib\\SpaceLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\SpaceLib\\SpaceLib.csproj",
+        "projectUniqueName": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\SpaceLib\\SpaceLib.csproj",
         "projectName": "SpaceLib",
-        "projectPath": "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\SpaceLib\\SpaceLib.csproj",
-        "packagesPath": "C:\\Users\\Andreas\\.nuget\\packages\\",
-        "outputPath": "C:\\HVL - Informasjonsteknologi\\var2026\\DAT154\\VisualStudio\\Planets\\SpaceLib\\obj\\",
+        "projectPath": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\SpaceLib\\SpaceLib.csproj",
+        "packagesPath": "C:\\Users\\2004a\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\2004a\\HVL\\aar2\\vaar\\DAT154\\Solarsystem\\Planets\\SpaceLib\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Andreas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\2004a\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
