@@ -1,6 +1,8 @@
 # Visual Studio folders
 .vs/
 **/.vs/
+*.suo
+DocumentLayout*.json
 
 # Build output folders
 bin/
