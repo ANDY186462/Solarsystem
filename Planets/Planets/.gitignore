@@ -1,16 +1,21 @@
-# Visual Studio
+# Visual Studio workspace
 .vs/
+
+# Build folders
 bin/
 obj/
 
-# User-specific files
+# User files
 *.user
 *.suo
 
-# Build results
-Debug/
-Release/
-
-# Cache files
+# Visual Studio caches
 *.cache
-*.log
+*.db
+*.opendb
+
+# Generated assembly info
+*AssemblyInfo.cs
+
+# Visual Studio indexing
+*.vsidx
