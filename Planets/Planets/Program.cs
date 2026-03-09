@@ -20,15 +20,15 @@ namespace SpaceSim
 			Planet uranus = new Planet("Uranus", 25362, -17.2, 2871, 30687, ConsoleColor.Cyan);
 			Planet neptune = new Planet("Neptune", 24622, 16.1, 4495, 60190, ConsoleColor.Blue);
 
-			Comet halley = new Comet("Halley's Comet", 11, 52.8, 2660, 27475, ConsoleColor.White);
-			Asteroid ceresAsteroid = new Asteroid("Vesta", 262.7, 5.3, 353, 1325, ConsoleColor.DarkGray);
-			AsteroidBelt mainBelt = new AsteroidBelt("Main Asteroid Belt", 0, 0, 414, 1680, ConsoleColor.DarkGray);
+			Comet halley = new Comet("Halley", 11, 52.8, 2660, 27475, ConsoleColor.White);
+			Asteroid asteroid = new Asteroid("Asteroid", 262.7, 5.3, 353, 1325, ConsoleColor.DarkGray);
+			AsteroidBelt asteroidBelt = new AsteroidBelt("Asteroid Belt", 0, 0, 414, 1680, ConsoleColor.DarkGray);
 			DwarfPlanet pluto = new DwarfPlanet("Pluto", 1188.3, 153.3, 5906, 90560, ConsoleColor.Gray);
 
 			//Navn, RadiusObjekt, LengdePåDag(timer), AvstandFraSentrum(km), TilForFullRundeRundtSentrum, Farge
 			Moon theMoon = new Moon("The moon", 1737.4, 655.7, 0.384, 27.3, ConsoleColor.Gray, earth);
 
-			List<SpaceObject> solarsystem = new List<SpaceObject>() { theSun, mercury, venus, earth, theMoon, mars, jupiter, saturn, uranus, neptune, pluto, halley, ceresAsteroid, mainBelt };
+			List<SpaceObject> solarsystem = new List<SpaceObject>() { theSun, mercury, venus, earth, theMoon, mars, jupiter, saturn, uranus, neptune, pluto, halley, asteroid, asteroidBelt };
 
 
 			Console.Write("Enter amount of hours: ");
@@ -40,9 +40,10 @@ namespace SpaceSim
 
 			if (string.IsNullOrWhiteSpace(input))
 			{
+				//Skrive ut alle space objekter (bortsett fra månen)
 				foreach (SpaceObject obj in solarsystem)
 				{
-					if (obj is Star || obj is Planet || obj is Comet || obj is Asteroid || obj is AsteroidBelt)
+					if (obj is Star || obj is Planet || obj is Comet || obj is Asteroid || obj is AsteroidBelt || obj is DwarfPlanet)
 					{
 						obj.Draw();
 						var (x, y, degrees) = obj.CalculatePos(time);
@@ -55,6 +56,7 @@ namespace SpaceSim
 			else
 			{
 				{
+					//Kunne skrive input med små bokstaver
 					SpaceObject selectedObject = null;
 
 					foreach (SpaceObject obj in solarsystem)
@@ -76,7 +78,7 @@ namespace SpaceSim
 						{
 							Console.WriteLine("Moons: ");
 						}
-
+						//Skrive ut måner
 						foreach (SpaceObject obj in solarsystem)
 						{
 							if (obj is Moon moon && moon.ParentPlanet == selectedObject)
@@ -90,6 +92,7 @@ namespace SpaceSim
 					}
 					else
 					{
+						//Hvis det er invalid input, skriver vi ut info om solen
 						Console.WriteLine("Object not found. Showing the Sun instead");
 							foreach (SpaceObject obj in solarsystem)
 							{
