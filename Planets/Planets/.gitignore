@@ -1,0 +1,16 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# Build results
+Debug/
+Release/
+
+# Cache files
+*.cache
+*.log
