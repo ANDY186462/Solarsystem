@@ -62,7 +62,7 @@ namespace SolarSystemGUI
             float maxDisplayRadius = Math.Min(centerX, centerY) - 50;
             float availableRadius = maxDisplayRadius - minOrbitRadius;
 
-            double distanceExponent = 0.4;
+            double distanceExponent = 0.65;
             float prevOrbitRadius = 0f;
             float prevPlanetSize = 0f;
 
@@ -75,15 +75,13 @@ namespace SolarSystemGUI
                 Brush brush = Brushes.White;
 
                 float minPlanetSize = 20f;
-                float maxPlanetSize = 80f;
+                float maxPlanetSize = 100f;
 
                 float planetSize = (float)((planet.ObjectRadius / maxPlanetRadius) * maxPlanetSize);
                 if (planetSize < minPlanetSize)
                 {
                     planetSize = minPlanetSize;
                 }
-
-                // float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
 
                 float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
 
@@ -98,8 +96,6 @@ namespace SolarSystemGUI
 
                 g.DrawEllipse(Pens.White, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
 
-                // double realDistance = Math.Sqrt(x * x + y * y);
-                // double compressedDistance = minOrbitRadius + Math.Pow(realDistance / maxOrbitalRadius, distanceExponent) * availableRadius;
                 double angleRadians = Math.Atan2(y, x);
 
                 float planetX = centerX + (float)(orbitRadius * Math.Cos(angleRadians));
