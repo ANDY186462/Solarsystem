@@ -105,14 +105,20 @@ namespace SolarSystemGUI
                 float planetX = centerX + (float)(orbitRadius * Math.Cos(angleRadians));
                 float planetY = centerY + (float)(orbitRadius * (Math.Sin(angleRadians)));
 
-                if (planet.Color == ConsoleColor.Gray) brush = Brushes.Gray;
-                else if (planet.Color == ConsoleColor.Yellow) brush = Brushes.Gold;
-                else if (planet.Color == ConsoleColor.Blue) brush = Brushes.Blue;
-                else if (planet.Color == ConsoleColor.Red) brush = Brushes.Red;
-                else if (planet.Color == ConsoleColor.DarkYellow) brush = Brushes.Orange;
-                else if (planet.Color == ConsoleColor.Cyan) brush = Brushes.Cyan;
+				switch (planet.Name)
+				{
 
-                g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
+					case "Mercury": brush = Brushes.Gray; break;
+					case "Venus": brush = Brushes.Goldenrod; break;
+					case "Earth": brush = Brushes.Blue; break;
+					case "Mars": brush = Brushes.Red; break;
+					case "Jupiter": brush = Brushes.Orange; break;
+					case "Saturn": brush = Brushes.Yellow; break;
+					case "Uranus": brush = Brushes.Cyan; break;
+					case "Neptune": brush = Brushes.Blue; break;
+				}
+
+				g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
 
             }
         }
