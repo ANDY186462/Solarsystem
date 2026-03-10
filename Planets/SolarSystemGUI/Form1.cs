@@ -1,3 +1,4 @@
+using System.Linq;
 using SpaceLib;
 namespace SolarSystemGUI
 {
@@ -30,6 +31,7 @@ namespace SolarSystemGUI
             planets.Add(saturn);
             planets.Add(uranus);
             planets.Add(neptune);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,12 +44,16 @@ namespace SolarSystemGUI
             base.OnPaint(e);
 
             Graphics g = e.Graphics;
+            g.Clear(Color.Black);
+
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
             float centerX = this.ClientSize.Width / 2;
             float centerY = this.ClientSize.Height / 2;
 
             float sunSize = 150;
-            float minOrbitRadius = sunSize / 2 + 35;
+            float minOrbitRadius = sunSize / 2 + 20;
 
             g.FillEllipse(Brushes.Yellow, centerX - sunSize / 2, centerY - sunSize / 2, sunSize, sunSize);
 
@@ -56,30 +62,48 @@ namespace SolarSystemGUI
             float maxDisplayRadius = Math.Min(centerX, centerY) - 50;
             float availableRadius = maxDisplayRadius - minOrbitRadius;
 
-            foreach (Planet planet in planets)
+            double distanceExponent = 0.4;
+            float prevOrbitRadius = 0f;
+            float prevPlanetSize = 0f;
+
+            List<Planet> orderedPlanets = planets.OrderBy(p => p.OrbitalRadius).ToList();
+
+            foreach (Planet planet in orderedPlanets)
             {
                 var (x, y, angle) = planet.CalculatePos(time);
 
-                float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, 0.4) * availableRadius);
-                g.DrawEllipse(Pens.Gray, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
-
-                double realDistance = Math.Sqrt(x * x + y * y);
-                double compressedDistance = minOrbitRadius + Math.Pow(realDistance / maxOrbitalRadius, 0.4) * availableRadius;
-                double angleRadians = Math.Atan2(y, x);
-
-                float planetX = centerX + (float)(compressedDistance * Math.Cos(angleRadians));
-                float planetY = centerY + (float)(compressedDistance * (Math.Sin(angleRadians)));
-
                 Brush brush = Brushes.White;
 
-                float minPlanetSize = 10f;
-                float maxPlanetSize = 40f;
+                float minPlanetSize = 20f;
+                float maxPlanetSize = 80f;
 
                 float planetSize = (float)((planet.ObjectRadius / maxPlanetRadius) * maxPlanetSize);
                 if (planetSize < minPlanetSize)
                 {
                     planetSize = minPlanetSize;
                 }
+
+                // float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
+
+                float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
+
+                float requiredGap = (prevPlanetSize / 2f) + (planetSize / 2f) + 10f;
+                if (orbitRadius < prevOrbitRadius + requiredGap)
+                {
+                    orbitRadius = prevOrbitRadius + requiredGap;
+                }
+
+                prevOrbitRadius = orbitRadius;
+                prevPlanetSize = planetSize; 
+
+                g.DrawEllipse(Pens.White, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
+
+                // double realDistance = Math.Sqrt(x * x + y * y);
+                // double compressedDistance = minOrbitRadius + Math.Pow(realDistance / maxOrbitalRadius, distanceExponent) * availableRadius;
+                double angleRadians = Math.Atan2(y, x);
+
+                float planetX = centerX + (float)(orbitRadius * Math.Cos(angleRadians));
+                float planetY = centerY + (float)(orbitRadius * (Math.Sin(angleRadians)));
 
                 if (planet.Color == ConsoleColor.Gray) brush = Brushes.Gray;
                 else if (planet.Color == ConsoleColor.Yellow) brush = Brushes.Gold;
