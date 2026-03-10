@@ -14,15 +14,17 @@ namespace SolarSystemGUI
         Planet uranus = new Planet("Uranus", 25362, -17.2, 2871, 30687, ConsoleColor.Cyan);
         Planet neptune = new Planet("Neptune", 24622, 16.1, 4495, 60190, ConsoleColor.Blue);
 
-		 
+
         List<Planet> planets = new List<Planet>();
-		double time = 0;
+        double time = 0;
+
+        bool showLabels = true;
 
         public Form1()
         {
             InitializeComponent();
             this.ResizeRedraw = true;
-		  planets.Add(mercury);
+            planets.Add(mercury);
             planets.Add(venus);
             planets.Add(earth);
             planets.Add(mars);
@@ -30,7 +32,10 @@ namespace SolarSystemGUI
             planets.Add(saturn);
             planets.Add(uranus);
             planets.Add(neptune);
-		}
+
+            this.KeyPreview = true;
+            this.KeyDown += Form1_KeyDown;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -54,6 +59,9 @@ namespace SolarSystemGUI
             float minOrbitRadius = sunSize / 2 + 20;
 
             g.FillEllipse(Brushes.Yellow, centerX - sunSize / 2, centerY - sunSize / 2, sunSize, sunSize);
+
+            Font labelFont = new Font("Arial", 10);
+            g.DrawString(theSun.Name, labelFont, Brushes.White, centerX + sunSize / 2 + 5, centerY - 10);
 
             double maxOrbitalRadius = neptune.OrbitalRadius;
             double maxPlanetRadius = jupiter.ObjectRadius;
@@ -90,33 +98,49 @@ namespace SolarSystemGUI
                 }
 
                 prevOrbitRadius = orbitRadius;
-                prevPlanetSize = planetSize; 
+                prevPlanetSize = planetSize;
 
                 g.DrawEllipse(Pens.White, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
 
-                // double realDistance = Math.Sqrt(x * x + y * y);
-                // double compressedDistance = minOrbitRadius + Math.Pow(realDistance / maxOrbitalRadius, distanceExponent) * availableRadius;
                 double angleRadians = Math.Atan2(y, x);
 
                 float planetX = centerX + (float)(orbitRadius * Math.Cos(angleRadians));
                 float planetY = centerY + (float)(orbitRadius * (Math.Sin(angleRadians)));
 
-               switch (planet.Name)
-				{
+                switch (planet.Name)
+                {
 
-					case "Mercury": brush = Brushes.Gray; break;
-					case "Venus": brush = Brushes.Goldenrod; break;
-					case "Earth": brush = Brushes.Blue; break;
-					case "Mars": brush = Brushes.Red; break;
-					case "Jupiter": brush = Brushes.Orange; break;
-					case "Saturn": brush = Brushes.Yellow; break;
-					case "Uranus": brush = Brushes.Cyan; break;
-					case "Neptune": brush = Brushes.Blue; break;
-				}
+                    case "Mercury": brush = Brushes.Gray; break;
+                    case "Venus": brush = Brushes.Goldenrod; break;
+                    case "Earth": brush = Brushes.Blue; break;
+                    case "Mars": brush = Brushes.Red; break;
+                    case "Jupiter": brush = Brushes.Orange; break;
+                    case "Saturn": brush = Brushes.Yellow; break;
+                    case "Uranus": brush = Brushes.Cyan; break;
+                    case "Neptune": brush = Brushes.Blue; break;
+                }
 
                 g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
 
+                Brush textBrush = Brushes.White;
+
+                if (showLabels)
+                {
+                    g.DrawString(planet.Name, labelFont, textBrush, planetX + planetSize / 2 + 4, planetY - planetSize / 2);
+
+                }
+
             }
         }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.L)
+            {
+                showLabels = !showLabels;
+                Invalidate();
+            }
+        }
+
     }
 }
