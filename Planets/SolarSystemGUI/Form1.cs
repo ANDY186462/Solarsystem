@@ -14,25 +14,23 @@ namespace SolarSystemGUI
         Planet uranus = new Planet("Uranus", 25362, -17.2, 2871, 30687, ConsoleColor.Cyan);
         Planet neptune = new Planet("Neptune", 24622, 16.1, 4495, 60190, ConsoleColor.Blue);
 
+		 
         List<Planet> planets = new List<Planet>();
-
-        double time = 0;
+		double time = 0;
 
         public Form1()
         {
             InitializeComponent();
             this.ResizeRedraw = true;
-
-            planets.Add(earth);
-            planets.Add(mercury);
+		  planets.Add(mercury);
             planets.Add(venus);
+            planets.Add(earth);
             planets.Add(mars);
             planets.Add(jupiter);
             planets.Add(saturn);
             planets.Add(uranus);
             planets.Add(neptune);
-
-        }
+		}
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -62,26 +60,26 @@ namespace SolarSystemGUI
             float maxDisplayRadius = Math.Min(centerX, centerY) - 50;
             float availableRadius = maxDisplayRadius - minOrbitRadius;
 
-            double distanceExponent = 0.65;
+            double distanceExponent = 0.4;
             float prevOrbitRadius = 0f;
             float prevPlanetSize = 0f;
 
-            List<Planet> orderedPlanets = planets.OrderBy(p => p.OrbitalRadius).ToList();
-
-            foreach (Planet planet in orderedPlanets)
+            foreach (Planet planet in planets)
             {
                 var (x, y, angle) = planet.CalculatePos(time);
 
                 Brush brush = Brushes.White;
 
                 float minPlanetSize = 20f;
-                float maxPlanetSize = 100f;
+                float maxPlanetSize = 80f;
 
                 float planetSize = (float)((planet.ObjectRadius / maxPlanetRadius) * maxPlanetSize);
                 if (planetSize < minPlanetSize)
                 {
                     planetSize = minPlanetSize;
                 }
+
+                // float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
 
                 float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
 
@@ -96,12 +94,14 @@ namespace SolarSystemGUI
 
                 g.DrawEllipse(Pens.White, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
 
+                // double realDistance = Math.Sqrt(x * x + y * y);
+                // double compressedDistance = minOrbitRadius + Math.Pow(realDistance / maxOrbitalRadius, distanceExponent) * availableRadius;
                 double angleRadians = Math.Atan2(y, x);
 
                 float planetX = centerX + (float)(orbitRadius * Math.Cos(angleRadians));
                 float planetY = centerY + (float)(orbitRadius * (Math.Sin(angleRadians)));
 
-				switch (planet.Name)
+               switch (planet.Name)
 				{
 
 					case "Mercury": brush = Brushes.Gray; break;
@@ -114,7 +114,7 @@ namespace SolarSystemGUI
 					case "Neptune": brush = Brushes.Blue; break;
 				}
 
-				g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
+                g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
 
             }
         }
