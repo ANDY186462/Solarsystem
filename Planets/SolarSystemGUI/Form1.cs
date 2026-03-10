@@ -46,27 +46,40 @@ namespace SolarSystemGUI
             float centerX = this.ClientSize.Width / 2;
             float centerY = this.ClientSize.Height / 2;
 
-            float sunSize = 40;
+            float sunSize = 150;
+            float minOrbitRadius = sunSize / 2 + 35;
 
             g.FillEllipse(Brushes.Yellow, centerX - sunSize / 2, centerY - sunSize / 2, sunSize, sunSize);
 
             double maxOrbitalRadius = neptune.OrbitalRadius;
-            double availableRadius = Math.Min(centerX, centerY) - 50;
-            double scale = availableRadius / maxOrbitalRadius;
-
+            double maxPlanetRadius = jupiter.ObjectRadius;
+            float maxDisplayRadius = Math.Min(centerX, centerY) - 50;
+            float availableRadius = maxDisplayRadius - minOrbitRadius;
 
             foreach (Planet planet in planets)
             {
                 var (x, y, angle) = planet.CalculatePos(time);
 
-                float orbitRadius = (float)(planet.OrbitalRadius * scale);
+                float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, 0.4) * availableRadius);
                 g.DrawEllipse(Pens.Gray, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
 
-                float planetX = centerX + (float)(x * scale);
-                float planetY = centerY + (float)(y * scale);
+                double realDistance = Math.Sqrt(x * x + y * y);
+                double compressedDistance = minOrbitRadius + Math.Pow(realDistance / maxOrbitalRadius, 0.4) * availableRadius;
+                double angleRadians = Math.Atan2(y, x);
 
-                float planetSize = 8;
+                float planetX = centerX + (float)(compressedDistance * Math.Cos(angleRadians));
+                float planetY = centerY + (float)(compressedDistance * (Math.Sin(angleRadians)));
+
                 Brush brush = Brushes.White;
+
+                float minPlanetSize = 10f;
+                float maxPlanetSize = 40f;
+
+                float planetSize = (float)((planet.ObjectRadius / maxPlanetRadius) * maxPlanetSize);
+                if (planetSize < minPlanetSize)
+                {
+                    planetSize = minPlanetSize;
+                }
 
                 if (planet.Color == ConsoleColor.Gray) brush = Brushes.Gray;
                 else if (planet.Color == ConsoleColor.Yellow) brush = Brushes.Gold;
@@ -75,7 +88,7 @@ namespace SolarSystemGUI
                 else if (planet.Color == ConsoleColor.DarkYellow) brush = Brushes.Orange;
                 else if (planet.Color == ConsoleColor.Cyan) brush = Brushes.Cyan;
 
-                g.FillEllipse(Brushes.Blue, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
+                g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
 
             }
         }
