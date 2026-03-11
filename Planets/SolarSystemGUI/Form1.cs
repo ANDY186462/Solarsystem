@@ -129,7 +129,19 @@ namespace SolarSystemGUI
                     case "Neptune": brush = Brushes.Blue; break;
                 }
 
-                if (planet == saturn)
+                switch (planet.Name)
+                {
+                    case "Mercury": brush = Brushes.Gray; break;
+                    case "Venus": brush = Brushes.Goldenrod; break;
+                    case "Earth": brush = Brushes.Blue; break;
+                    case "Mars": brush = Brushes.Red; break;
+                    case "Jupiter": brush = Brushes.Orange; break;
+                    case "Saturn": brush = Brushes.Yellow; break;
+                    case "Uranus": brush = Brushes.Cyan; break;
+                    case "Neptune": brush = Brushes.Blue; break;
+                }
+
+                if (planet.Name == "Saturn")
                 {
                     float outerRingWidth = planetSize * 2.4f;
                     float outerRingHeight = planetSize * 0.9f;
@@ -137,23 +149,25 @@ namespace SolarSystemGUI
                     float innerRingWidth = planetSize * 1.6f;
                     float innerRingHeight = planetSize * 0.45f;
 
-                    float ringAngle = (float)(time * 8 % 360);
+                    float ringAngle = (float)(time * 0.1); 
 
                     GraphicsState state = g.Save();
 
                     g.TranslateTransform(planetX, planetY);
                     g.RotateTransform(ringAngle);
 
-                    using (Pen outerPen = new Pen(Color.LightGoldenrodYellow, 3)) ;
-                    using (Pen innerPen = new Pen(Color.Khaki, 2)) ;
+                    using (Pen outerPen = new Pen(Color.LightGoldenrodYellow, 3))
+                    using (Pen innerPen = new Pen(Color.Khaki, 2))
                     {
                         g.DrawArc(
-                            outerPen, -outerRingWidth / 2,
+                            outerPen,
+                            -outerRingWidth / 2,
                             -outerRingHeight / 2,
                             outerRingWidth,
                             outerRingHeight,
                             180,
-                            180);
+                            180
+                        );
 
                         g.DrawArc(
                             innerPen,
@@ -162,8 +176,54 @@ namespace SolarSystemGUI
                             innerRingWidth,
                             innerRingHeight,
                             180,
-                            180);
+                            180
+                        );
                     }
+
+                    g.Restore(state);
+
+                    g.FillEllipse(
+                        brush,
+                        planetX - planetSize / 2,
+                        planetY - planetSize / 2,
+                        planetSize,
+                        planetSize
+                    );
+
+                    state = g.Save();
+
+                    g.TranslateTransform(planetX, planetY);
+                    g.RotateTransform(ringAngle);
+
+                    using (Pen outerPen = new Pen(Color.LightGoldenrodYellow, 3))
+                    using (Pen innerPen = new Pen(Color.Khaki, 2))
+                    {
+                        g.DrawArc(
+                            outerPen,
+                            -outerRingWidth / 2,
+                            -outerRingHeight / 2,
+                            outerRingWidth,
+                            outerRingHeight,
+                            0,
+                            180
+                        );
+
+                        g.DrawArc(
+                            innerPen,
+                            -innerRingWidth / 2,
+                            -innerRingHeight / 2,
+                            innerRingWidth,
+                            innerRingHeight,
+                            0,
+                            180
+                        );
+                    }
+
+                    g.Restore(state);
+                }
+                else
+                {
+                    g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
                 }
 
                 g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
