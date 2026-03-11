@@ -101,8 +101,6 @@ namespace SolarSystemGUI
                     planetSize = minPlanetSize;
                 }
 
-                // float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
-
                 float orbitRadius = minOrbitRadius + (float)(Math.Pow(planet.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
 
                 float requiredGap = (prevPlanetSize / 2f) + (planetSize / 2f) + 10f;
