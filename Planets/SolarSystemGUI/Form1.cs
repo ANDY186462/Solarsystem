@@ -1,3 +1,4 @@
+using System.Drawing.Drawing2D;
 using System.Linq;
 using SpaceLib;
 namespace SolarSystemGUI
@@ -26,8 +27,8 @@ namespace SolarSystemGUI
         public Form1()
         {
             InitializeComponent();
-			this.DoubleBuffered = true;
-			this.ResizeRedraw = true;
+            this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
 
             planets = SolarSystemFactory.CreatePlanets();
 
@@ -47,15 +48,10 @@ namespace SolarSystemGUI
         {
             time = newTime;
 
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action(() => Invalidate()));
-            }
-            else
-            {
-                Invalidate();
-            }
+            Invalidate();
+
         }
+
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -131,6 +127,43 @@ namespace SolarSystemGUI
                     case "Saturn": brush = Brushes.Yellow; break;
                     case "Uranus": brush = Brushes.Cyan; break;
                     case "Neptune": brush = Brushes.Blue; break;
+                }
+
+                if (planet == saturn)
+                {
+                    float outerRingWidth = planetSize * 2.4f;
+                    float outerRingHeight = planetSize * 0.9f;
+
+                    float innerRingWidth = planetSize * 1.6f;
+                    float innerRingHeight = planetSize * 0.45f;
+
+                    float ringAngle = (float)(time * 8 % 360);
+
+                    GraphicsState state = g.Save();
+
+                    g.TranslateTransform(planetX, planetY);
+                    g.RotateTransform(ringAngle);
+
+                    using (Pen outerPen = new Pen(Color.LightGoldenrodYellow, 3)) ;
+                    using (Pen innerPen = new Pen(Color.Khaki, 2)) ;
+                    {
+                        g.DrawArc(
+                            outerPen, -outerRingWidth / 2,
+                            -outerRingHeight / 2,
+                            outerRingWidth,
+                            outerRingHeight,
+                            180,
+                            180);
+
+                        g.DrawArc(
+                            innerPen,
+                            -innerRingWidth / 2,
+                            -innerRingHeight / 2,
+                            innerRingWidth,
+                            innerRingHeight,
+                            180,
+                            180);
+                    }
                 }
 
                 g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
