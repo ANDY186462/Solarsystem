@@ -15,7 +15,10 @@ namespace SolarSystemGUI
         Planet neptune = new Planet("Neptune", 24622, 16.1, 4495, 60190, ConsoleColor.Blue);
 
 
-        List<Planet> planets = new List<Planet>();
+        List<Planet> planets = SolarSystemFactory.CreatePlanets();
+
+        Simulation engine = new Simulation();
+
         double time = 0;
 
         bool showLabels = true;
@@ -24,14 +27,11 @@ namespace SolarSystemGUI
         {
             InitializeComponent();
             this.ResizeRedraw = true;
-            planets.Add(mercury);
-            planets.Add(venus);
-            planets.Add(earth);
-            planets.Add(mars);
-            planets.Add(jupiter);
-            planets.Add(saturn);
-            planets.Add(uranus);
-            planets.Add(neptune);
+
+            planets = SolarSystemFactory.CreatePlanets();
+
+            engine.DoTick += UpdateSimulation;
+            engine.Start();
 
             this.KeyPreview = true;
             this.KeyDown += Form1_KeyDown;
@@ -40,6 +40,20 @@ namespace SolarSystemGUI
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void UpdateSimulation(double newTime)
+        {
+            time = newTime;
+
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => Invalidate()));
+            }
+            else
+            {
+                Invalidate();
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -139,6 +153,16 @@ namespace SolarSystemGUI
             {
                 showLabels = !showLabels;
                 Invalidate();
+            }
+
+            if (e.KeyCode == Keys.Up)
+            {
+                engine.IncreaseSpeed();
+            }
+
+            if (e.KeyCode == Keys.Down)
+            {
+                engine.DecreaseSpeed();
             }
         }
 
