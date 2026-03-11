@@ -15,7 +15,7 @@ namespace SpaceLib
 
         public Simulation()
         {
-            timer = new System.Timers.Timer(40); // about 25 FPS
+            timer = new System.Timers.Timer(40); 
             timer.Elapsed += TimerTick;
         }
 
