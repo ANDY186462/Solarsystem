@@ -15,7 +15,11 @@ namespace SpaceLib
 
         public Simulation()
         {
+<<<<<<< Updated upstream
             timer = new System.Timers.Timer(40); 
+=======
+            timer = new System.Timers.Timer(16); // about 60 FPS
+>>>>>>> Stashed changes
             timer.Elapsed += TimerTick;
         }
 

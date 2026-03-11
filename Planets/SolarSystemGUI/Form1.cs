@@ -26,7 +26,8 @@ namespace SolarSystemGUI
         public Form1()
         {
             InitializeComponent();
-            this.ResizeRedraw = true;
+			this.DoubleBuffered = true;
+			this.ResizeRedraw = true;
 
             planets = SolarSystemFactory.CreatePlanets();
 
