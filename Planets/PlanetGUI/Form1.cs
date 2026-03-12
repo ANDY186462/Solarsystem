@@ -91,10 +91,11 @@ namespace PlanetGUI
             g.DrawString($"Orbital period: {selectedPlanet.OrbitalPeriod}", infoFont, textBrush, textX, textY + 90);
             g.DrawString($"Rotational period: {selectedPlanet.RotationalPeriod}", infoFont, textBrush, textX, textY + 120);
             g.DrawString($"Moons: {selectedPlanet.Moons.Count}", infoFont, textBrush, textX, textY + 150);
-            g.DrawString("Esc = close   L = toggle moon labels   Up/Down = speed", infoFont, textBrush, textX, textY + 190);
+            g.DrawString("Esc = close   L = toggle moon labels", infoFont, textBrush, textX, textY + 190);
+			g.DrawString("Up/Down = speed    I = Hide orbits", infoFont, textBrush, textX, textY + 220);
 
-            // Draw moons
-            if (selectedPlanet.Moons.Count > 0)
+			// Draw moons
+			if (selectedPlanet.Moons.Count > 0)
             {
                 double maxMoonOrbit = selectedPlanet.Moons.Max(m => Math.Abs(m.OrbitalRadius));
                 double maxMoonRadius = selectedPlanet.Moons.Max(m => m.ObjectRadius);
@@ -136,15 +137,16 @@ namespace PlanetGUI
 
                     prevOrbitRadius = moonOrbitRadius;
                     prevMoonSize = moonSize;
-
-                    g.DrawEllipse(
-                        Pens.White,
-                        centerX - moonOrbitRadius,
-                        centerY - moonOrbitRadius,
-                        moonOrbitRadius * 2,
-                        moonOrbitRadius * 2
-                    );
-
+                    if (ShowIcon)
+                    {
+                        g.DrawEllipse(
+                            Pens.Red,
+                            centerX - moonOrbitRadius,
+                            centerY - moonOrbitRadius,
+                            moonOrbitRadius * 2,
+                            moonOrbitRadius * 2
+                        );
+                    }
                     double angle = (2 * Math.PI / moon.OrbitalPeriod) * time;
 
                     float moonX = centerX + (float)(moonOrbitRadius * Math.Cos(angle));
@@ -210,7 +212,13 @@ namespace PlanetGUI
             {
                 engine.DecreaseSpeed();
             }
-        }
+			if (e.KeyCode == Keys.I)
+			{
+				ShowIcon = !ShowIcon;
+				Invalidate();
+			}
+		}
+        
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {

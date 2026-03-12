@@ -127,9 +127,11 @@ namespace SolarSystemGUI
 
                 prevOrbitRadius = orbitRadius;
                 prevPlanetSize = planetSize;
-
+                if (ShowIcon) { 
                 g.DrawEllipse(Pens.White, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
 
+
+            }
                 double angleRadians = Math.Atan2(y, x);
 
                 float planetX = centerX + (float)(orbitRadius * Math.Cos(angleRadians));
@@ -252,7 +254,14 @@ namespace SolarSystemGUI
 
                 }
 
-            }
+				Font infoFont = new Font("Arial", 11);
+				// Info panel
+				float textX = 20;
+				float textY = 20;
+				g.DrawString("Up/Down = speed    I = Hide orbits    L = Hide planet labeles"   , infoFont, textBrush, textX, textY + 20);
+
+
+			}
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -271,6 +280,11 @@ namespace SolarSystemGUI
             if (e.KeyCode == Keys.Down)
             {
                 engine.DecreaseSpeed();
+            }
+            if(e.KeyCode == Keys.I)
+            {
+                ShowIcon = !ShowIcon;
+                Invalidate();
             }
         }
 
