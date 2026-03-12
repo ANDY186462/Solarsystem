@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PlanetGUI\PlanetGUI.csproj" />
     <ProjectReference Include="..\SpaceLib\SpaceLib.csproj" />
   </ItemGroup>
 
