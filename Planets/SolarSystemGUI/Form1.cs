@@ -48,10 +48,10 @@ namespace SolarSystemGUI
 			{
 				Planet planet = pair.Key;
 				RectangleF rect = pair.Value;
-
+                if(planet == null) continue;
 				if (rect.Contains(e.Location))
 				{
-					PlanetGUI gui = new PlanetGUI(planet);
+					PlanetGUI.PlanetForm gui = new PlanetGUI.PlanetForm(planet);
 					gui.Show();
 					break;
 				}
