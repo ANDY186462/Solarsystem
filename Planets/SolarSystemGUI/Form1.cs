@@ -51,10 +51,9 @@ namespace SolarSystemGUI
                 if(planet == null) continue;
 				if (rect.Contains(e.Location))
 				{
-					PlanetGUI.PlanetForm gui = new PlanetGUI.PlanetForm(planet);
-					gui.Show();
-					break;
-				}
+                    PlanetGUI.Form1 gui = new PlanetGUI.Form1(planet);
+                    gui.Show();
+                }
 			}
 		}
 
