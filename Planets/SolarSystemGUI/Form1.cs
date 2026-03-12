@@ -8,6 +8,8 @@ namespace SolarSystemGUI
 
         Dictionary<Planet, RectangleF> planetHitboxes = new Dictionary<Planet, RectangleF>();
 
+
+
         Star theSun = new Star("The sun", 696340, 609.12, 0, 0, ConsoleColor.Yellow);
         Planet earth = new Planet("Earth", 6371, 24, 149.6, 365.25, ConsoleColor.Blue);
         Planet mercury = new Planet("Mercury", 2439.7, 1407.6, 57.9, 88, ConsoleColor.Gray);
@@ -27,6 +29,8 @@ namespace SolarSystemGUI
 
         bool showLabels = true;
 
+        List<MoonFactory> activeParticles = new List<MoonFactory>();
+
         public Form1()
         {
             InitializeComponent();
@@ -35,6 +39,7 @@ namespace SolarSystemGUI
 
             this.MouseClick += Form1_MouseClick;
             planets = SolarSystemFactory.CreatePlanets();
+
 
             engine.DoTick += UpdateSimulation;
             engine.Start();
@@ -127,11 +132,12 @@ namespace SolarSystemGUI
 
                 prevOrbitRadius = orbitRadius;
                 prevPlanetSize = planetSize;
-                if (ShowIcon) { 
-                g.DrawEllipse(Pens.White, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
+                if (ShowIcon)
+                {
+                    g.DrawEllipse(Pens.White, centerX - orbitRadius, centerY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
 
 
-            }
+                }
                 double angleRadians = Math.Atan2(y, x);
 
                 float planetX = centerX + (float)(orbitRadius * Math.Cos(angleRadians));
@@ -158,6 +164,8 @@ namespace SolarSystemGUI
                     case "Uranus": brush = Brushes.Cyan; break;
                     case "Neptune": brush = Brushes.Blue; break;
                 }
+
+
 
                 if (planet.Name == "Saturn")
                 {
@@ -247,22 +255,63 @@ namespace SolarSystemGUI
                 g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
 
                 Brush textBrush = Brushes.White;
-
-                if (showLabels)
-                {
-                    g.DrawString(planet.Name, labelFont, textBrush, planetX + planetSize / 2 + 4, planetY - planetSize / 2);
-
-                }
-
 				Font infoFont = new Font("Arial", 11);
 				// Info panel
 				float textX = 20;
 				float textY = 20;
-				g.DrawString("Up/Down = speed    I = Hide orbits    L = Hide planet labeles"   , infoFont, textBrush, textX, textY + 20);
+				g.DrawString("Up/Down = speed    I = Hide orbits    L = Hide planet labeles", infoFont, textBrush, textX, textY + 20);
 
 
-			}
+
+
+				if (showLabels)
+                {
+                    g.DrawString(planet.Name, labelFont, textBrush, planetX + planetSize / 2 + 4, planetY - planetSize / 2);
+
+                }
+            }
+            float deltaTime = 0.016f; // ~60 FPS
+            for (int i = activeParticles.Count - 1; i >= 0; i--)
+            {
+                var p = activeParticles[i];
+                p.Update(deltaTime);
+                if (!p.IsAlive)
+                    activeParticles.RemoveAt(i);
+                else
+                    g.FillEllipse(Brushes.OrangeRed, p.Position.X - p.Size / 2, p.Position.Y - p.Size / 2, p.Size, p.Size);
+            }
         }
+
+        private void ExplodePlanet(Planet planet)
+        {
+            if (!planetHitboxes.ContainsKey(planet)) return;
+
+            RectangleF rect = planetHitboxes[planet];
+            float centerX = rect.Left + rect.Width / 2;
+            float centerY = rect.Top + rect.Height / 2;
+
+            Random rnd = new Random();
+
+            for (int i = 0; i < 50; i++)
+            {
+                float angle = (float)(rnd.NextDouble() * Math.PI * 2);
+                float speed = (float)(rnd.NextDouble() * 200 + 50);
+                float size = (float)(rnd.NextDouble() * 6 + 2);
+                float life = (float)(rnd.NextDouble() * 1 + 0.5f);
+
+                var velocity = new PointF(
+                    (float)Math.Cos(angle) * speed,
+                    (float)Math.Sin(angle) * speed
+                );
+
+                activeParticles.Add(new MoonFactory(new PointF(centerX, centerY), velocity, size, life));
+            }
+
+            // Fjern planet fra simuleringen
+            planets.Remove(planet);
+            Invalidate();
+        }
+
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -281,12 +330,31 @@ namespace SolarSystemGUI
             {
                 engine.DecreaseSpeed();
             }
-            if(e.KeyCode == Keys.I)
+
+            if (e.KeyCode == Keys.I)
             {
                 ShowIcon = !ShowIcon;
                 Invalidate();
             }
-        }
 
+            // --- Ny del: spreng planet under musepekeren når E trykkes ---
+            if (e.KeyCode == Keys.E)
+            {
+                Point mousePos = this.PointToClient(Cursor.Position);
+
+                foreach (var pair in planetHitboxes)
+                {
+                    Planet planet = pair.Key;
+                    RectangleF rect = pair.Value;
+
+                    if (rect.Contains(mousePos))
+                    {
+                        ExplodePlanet(planet);
+                        Invalidate(); // Trigge repaint for å se eksplosjonen
+                        break; // Bare spreng én planet
+                    }
+                }
+            }
+        }
     }
-}
+}        
