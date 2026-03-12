@@ -140,7 +140,7 @@ namespace PlanetGUI
                     if (ShowIcon)
                     {
                         g.DrawEllipse(
-                            Pens.Red,
+                            Pens.White,
                             centerX - moonOrbitRadius,
                             centerY - moonOrbitRadius,
                             moonOrbitRadius * 2,
