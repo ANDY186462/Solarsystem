@@ -4,6 +4,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="PlanetGUI/PlanetGUI.csproj" Id="6d710983-f516-4c60-a4b4-df8e0a909661" />
   <Project Path="Planets/Planets.csproj" />
   <Project Path="SolarSystemGUI/SolarSystemGUI.csproj" Id="162fe480-8001-43b3-98d5-475c87c58389" />
   <Project Path="SpaceLib/SpaceLib.csproj" />
