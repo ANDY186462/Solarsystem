@@ -60,11 +60,26 @@ namespace SpaceLib
             saturn.AddMoon(new Moon("Phoebe", 107, 9.3, 12952, -550.48, ConsoleColor.Gray, saturn));
 
             // Uranus
+            uranus.AddMoon(new Moon("Cordelia", 50, 12, 50, 0.34, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Ophelia", 54, 12, 54, 0.38, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Bianca", 59, 12, 59, 0.43, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Cressida", 62, 12, 62, 0.46, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Desdemona", 63, 12, 63, 0.47, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Juliet", 64, 12, 64, 0.49, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Portia", 66, 12, 66, 0.51, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Rosalind", 70, 12, 70, 0.56, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Belinda", 75, 12, 75, 0.62, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Puck", 86, 12, 86, 0.76, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Miranda", 236, 34, 130, 1.41, ConsoleColor.Gray, uranus));
             uranus.AddMoon(new Moon("Ariel", 581, 60, 191, 2.52, ConsoleColor.Gray, uranus));
             uranus.AddMoon(new Moon("Umbriel", 585, 84, 266, 4.14, ConsoleColor.Gray, uranus));
             uranus.AddMoon(new Moon("Titania", 789, 209, 436, 8.71, ConsoleColor.Gray, uranus));
             uranus.AddMoon(new Moon("Oberon", 761, 324, 583, 13.46, ConsoleColor.Gray, uranus));
-            uranus.AddMoon(new Moon("Miranda", 236, 34, 130, 1.41, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Caliban", 120, 12, 7169, -580.00, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Stephano", 16, 12, 7948, -674.00, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Sycorax", 75, 12, 12213, -1289.00, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Prospero", 25, 12, 16568, -2019.00, ConsoleColor.Gray, uranus));
+            uranus.AddMoon(new Moon("Setebos", 24, 12, 17681, -2239.00, ConsoleColor.Gray, uranus));
 
             // Neptune
             neptune.AddMoon(new Moon("Triton", 1353, 141, 355, -5.88, ConsoleColor.Gray, neptune));

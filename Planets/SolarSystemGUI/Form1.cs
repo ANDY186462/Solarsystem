@@ -6,9 +6,9 @@ namespace SolarSystemGUI
     public partial class Form1 : Form
     {
 
-		Dictionary<Planet, RectangleF> planetHitboxes = new Dictionary<Planet, RectangleF>();
+        Dictionary<Planet, RectangleF> planetHitboxes = new Dictionary<Planet, RectangleF>();
 
-		Star theSun = new Star("The sun", 696340, 609.12, 0, 0, ConsoleColor.Yellow);
+        Star theSun = new Star("The sun", 696340, 609.12, 0, 0, ConsoleColor.Yellow);
         Planet earth = new Planet("Earth", 6371, 24, 149.6, 365.25, ConsoleColor.Blue);
         Planet mercury = new Planet("Mercury", 2439.7, 1407.6, 57.9, 88, ConsoleColor.Gray);
         Planet venus = new Planet("Venus", 6051.8, -5832.5, 108.2, 224.7, ConsoleColor.Yellow);
@@ -32,9 +32,9 @@ namespace SolarSystemGUI
             InitializeComponent();
             this.DoubleBuffered = true;
             this.ResizeRedraw = true;
-			
-			this.MouseClick += Form1_MouseClick;
-			planets = SolarSystemFactory.CreatePlanets();
+
+            this.MouseClick += Form1_MouseClick;
+            planets = SolarSystemFactory.CreatePlanets();
 
             engine.DoTick += UpdateSimulation;
             engine.Start();
@@ -42,22 +42,22 @@ namespace SolarSystemGUI
             this.KeyPreview = true;
             this.KeyDown += Form1_KeyDown;
         }
-		private void Form1_MouseClick(object sender, MouseEventArgs e)
-		{
-			foreach (var pair in planetHitboxes)
-			{
-				Planet planet = pair.Key;
-				RectangleF rect = pair.Value;
-                if(planet == null) continue;
-				if (rect.Contains(e.Location))
-				{
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            foreach (var pair in planetHitboxes)
+            {
+                Planet planet = pair.Key;
+                RectangleF rect = pair.Value;
+                if (planet == null) continue;
+                if (rect.Contains(e.Location))
+                {
                     PlanetGUI.Form1 gui = new PlanetGUI.Form1(planet);
                     gui.Show();
                 }
-			}
-		}
+            }
+        }
 
-		private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
@@ -75,8 +75,8 @@ namespace SolarSystemGUI
         {
             base.OnPaint(e);
 
-			planetHitboxes.Clear();
-			Graphics g = e.Graphics;
+            planetHitboxes.Clear();
+            Graphics g = e.Graphics;
             g.Clear(Color.Black);
 
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -135,16 +135,16 @@ namespace SolarSystemGUI
                 float planetX = centerX + (float)(orbitRadius * Math.Cos(angleRadians));
                 float planetY = centerY + (float)(orbitRadius * (Math.Sin(angleRadians)));
 
-				RectangleF hitbox = new RectangleF(
-	planetX - planetSize / 2,
-	planetY - planetSize / 2,
-	planetSize,
-	planetSize
-);
+                RectangleF hitbox = new RectangleF(
+                planetX - planetSize / 2,
+                planetY - planetSize / 2,
+                planetSize,
+                planetSize
+                );
 
-				planetHitboxes[planet] = hitbox;
+                planetHitboxes[planet] = hitbox;
 
-				switch (planet.Name)
+                switch (planet.Name)
                 {
 
                     case "Mercury": brush = Brushes.Gray; break;
@@ -165,7 +165,7 @@ namespace SolarSystemGUI
                     float innerRingWidth = planetSize * 1.6f;
                     float innerRingHeight = planetSize * 0.45f;
 
-                    float ringAngle = (float)(time * 0.1); 
+                    float ringAngle = (float)(time * 0.1);
 
                     GraphicsState state = g.Save();
 

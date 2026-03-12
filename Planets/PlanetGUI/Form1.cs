@@ -97,6 +97,7 @@ namespace PlanetGUI
             if (selectedPlanet.Moons.Count > 0)
             {
                 double maxMoonOrbit = selectedPlanet.Moons.Max(m => Math.Abs(m.OrbitalRadius));
+                double maxMoonRadius = selectedPlanet.Moons.Max(m => m.ObjectRadius);
 
                 float minMoonOrbitRadius = planetSize / 2 + 35f;
                 float maxMoonOrbitRadius = Math.Min(this.ClientSize.Width, this.ClientSize.Height) / 2f - 40f;
@@ -104,8 +105,20 @@ namespace PlanetGUI
 
                 double orbitExponent = 0.45;
 
-                foreach (Moon moon in selectedPlanet.Moons)
+                float prevOrbitRadius = 0f;
+                float prevMoonSize = 0f;
+
+                foreach (Moon moon in selectedPlanet.Moons.OrderBy(m => Math.Abs(m.OrbitalRadius)))
                 {
+                    float minMoonSize = 8f;
+                    float maxMoonSize = 20f;
+
+                    float moonSize = (float)((moon.ObjectRadius / maxMoonRadius) * maxMoonSize);
+                    if (moonSize < minMoonSize)
+                    {
+                        moonSize = minMoonSize;
+                    }
+
                     float moonOrbitRadius = minMoonOrbitRadius;
 
                     if (maxMoonOrbit > 0)
@@ -115,7 +128,15 @@ namespace PlanetGUI
                         );
                     }
 
-                    // Orbit line
+                    float requiredGap = (prevMoonSize / 2f) + (moonSize / 2f) + 10f;
+                    if (moonOrbitRadius < prevOrbitRadius + requiredGap)
+                    {
+                        moonOrbitRadius = prevOrbitRadius + requiredGap;
+                    }
+
+                    prevOrbitRadius = moonOrbitRadius;
+                    prevMoonSize = moonSize;
+
                     g.DrawEllipse(
                         Pens.White,
                         centerX - moonOrbitRadius,
@@ -124,13 +145,10 @@ namespace PlanetGUI
                         moonOrbitRadius * 2
                     );
 
-                    // Moon angle around selected planet
                     double angle = (2 * Math.PI / moon.OrbitalPeriod) * time;
 
                     float moonX = centerX + (float)(moonOrbitRadius * Math.Cos(angle));
                     float moonY = centerY + (float)(moonOrbitRadius * Math.Sin(angle));
-
-                    float moonSize = (float)Math.Max(8, Math.Min(20, moon.ObjectRadius / 150.0));
 
                     g.FillEllipse(
                         Brushes.LightGray,
@@ -151,10 +169,6 @@ namespace PlanetGUI
                         );
                     }
                 }
-            }
-            else
-            {
-                g.DrawString("This planet has no moons.", infoFont, Brushes.White, centerX - 80, centerY + 100);
             }
         }
 
