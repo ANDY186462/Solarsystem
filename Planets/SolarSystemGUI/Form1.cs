@@ -8,8 +8,6 @@ namespace SolarSystemGUI
 
         Dictionary<Planet, RectangleF> planetHitboxes = new Dictionary<Planet, RectangleF>();
 
-
-
         Star theSun = new Star("The sun", 696340, 609.12, 0, 0, ConsoleColor.Yellow);
         Planet earth = new Planet("Earth", 6371, 24, 149.6, 365.25, ConsoleColor.Blue);
         Planet mercury = new Planet("Mercury", 2439.7, 1407.6, 57.9, 88, ConsoleColor.Gray);
@@ -20,6 +18,7 @@ namespace SolarSystemGUI
         Planet uranus = new Planet("Uranus", 25362, -17.2, 2871, 30687, ConsoleColor.Cyan);
         Planet neptune = new Planet("Neptune", 24622, 16.1, 4495, 60190, ConsoleColor.Blue);
 
+        Comet halley = new Comet("Halley", 11, 52.8, 2660, 27475, ConsoleColor.White);
 
         List<Planet> planets = SolarSystemFactory.CreatePlanets();
 
@@ -152,6 +151,8 @@ namespace SolarSystemGUI
 
                 planetHitboxes[planet] = hitbox;
 
+
+
                 switch (planet.Name)
                 {
 
@@ -255,22 +256,80 @@ namespace SolarSystemGUI
                 g.FillEllipse(brush, planetX - planetSize / 2, planetY - planetSize / 2, planetSize, planetSize);
 
                 Brush textBrush = Brushes.White;
-				Font infoFont = new Font("Arial", 11);
-				// Info panel
-				float textX = 20;
-				float textY = 20;
-				g.DrawString("Up/Down = speed    I = Hide orbits    L = Hide planet labeles", infoFont, textBrush, textX, textY + 20);
+                Font infoFont = new Font("Arial", 11);
+                // Info panel
+                float textX = 20;
+                float textY = 20;
+                g.DrawString("Up/Down = speed    I = Hide orbits    L = Hide planet labeles", infoFont, textBrush, textX, textY + 20);
 
 
 
 
-				if (showLabels)
+                if (showLabels)
                 {
                     g.DrawString(planet.Name, labelFont, textBrush, planetX + planetSize / 2 + 4, planetY - planetSize / 2);
 
                 }
             }
+
             float deltaTime = 0.016f; // ~60 FPS
+
+            var (hx, hy, hAngle) = halley.CalculatePos(time);
+
+            double halleyAngleRadians = Math.Atan2(hy, hx);
+
+            float halleyOrbitRadius = minOrbitRadius + (float)(Math.Pow(halley.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
+
+            float halleySize = 18f;
+
+            float halleyX = centerX + (float)(halleyOrbitRadius * Math.Cos(halleyAngleRadians));
+            float halleyY = centerY + (float)(halleyOrbitRadius * 0.55 * Math.Sin(halleyAngleRadians));
+
+            if (ShowIcon)
+            {
+                float halleyOrbitWidth = halleyOrbitRadius * 2;
+                float halleyOrbitHeight = halleyOrbitRadius * 2 * 0.55f;
+
+                g.DrawEllipse(
+                    Pens.White,
+                    centerX - halleyOrbitWidth / 2,
+                    centerY - halleyOrbitHeight / 2,
+                    halleyOrbitWidth,
+                    halleyOrbitHeight
+                );
+            }
+
+            float tailLength = 25f;
+
+            float dirX = halleyX - centerX;
+            float dirY = halleyY - centerY;
+
+            float dirLength = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
+
+            if (dirLength > 0)
+            {
+                dirX /= dirLength;
+                dirY /= dirLength;
+
+                float tailX = halleyX + dirX * tailLength;
+                float tailY = halleyY + dirY * tailLength;
+
+                using (Pen tailPen = new Pen(Color.LightBlue, 2))
+                {
+                    g.DrawLine(tailPen, halleyX, halleyY, tailX, tailY);
+                }
+            }
+
+            using (SolidBrush halleyBrush = new SolidBrush(Color.AliceBlue))
+            {
+                g.FillEllipse(halleyBrush, halleyX - halleySize / 2, halleyY - halleySize / 2, halleySize, halleySize);
+            }
+
+            if (showLabels)
+            {
+                g.DrawString("Halley", labelFont, Brushes.White, halleyX + halleySize / 2 + 4, halleyY - halleySize / 2);
+            }
+
             for (int i = activeParticles.Count - 1; i >= 0; i--)
             {
                 var p = activeParticles[i];
@@ -350,11 +409,11 @@ namespace SolarSystemGUI
                     if (rect.Contains(mousePos))
                     {
                         ExplodePlanet(planet);
-                        Invalidate(); 
-                        break; 
+                        Invalidate();
+                        break;
                     }
                 }
             }
         }
     }
-}        
+}
