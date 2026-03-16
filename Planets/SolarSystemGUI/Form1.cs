@@ -142,7 +142,7 @@ namespace SolarSystemGUI
             Font labelFont = new Font("Arial", 10);
             g.DrawString(theSun.Name, labelFont, Brushes.White, centerX + sunSize / 2 + 5, centerY - 10);
 
-            double maxOrbitalRadius = neptune.OrbitalRadius;
+            double maxOrbitalRadius = pluto.OrbitalRadius;
             double maxPlanetRadius = jupiter.ObjectRadius;
             float maxDisplayRadius = Math.Min(centerX, centerY) - 50;
             float availableRadius = maxDisplayRadius - minOrbitRadius;
@@ -389,8 +389,10 @@ namespace SolarSystemGUI
 
             double plutoAngleRadians = Math.Atan2(py, px);
 
-            float plutoOrbitRadius =
-                minOrbitRadius + (float)(Math.Pow(pluto.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
+            float scaledPlutoOrbitRadius =
+            minOrbitRadius + (float)(Math.Pow(pluto.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
+
+            float plutoOrbitRadius = Math.Max(scaledPlutoOrbitRadius, prevOrbitRadius + 35f);
 
             float plutoSize = 16f;
 
