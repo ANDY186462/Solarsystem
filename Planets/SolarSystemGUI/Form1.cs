@@ -18,7 +18,11 @@ namespace SolarSystemGUI
         Planet uranus = new Planet("Uranus", 25362, -17.2, 2871, 30687, ConsoleColor.Cyan);
         Planet neptune = new Planet("Neptune", 24622, 16.1, 4495, 60190, ConsoleColor.Blue);
 
+        DwarfPlanet pluto = new DwarfPlanet("Pluto", 1188.3, 153.3, 5906, 90560, ConsoleColor.Gray);
+
         Comet halley = new Comet("Halley", 11, 52.8, 2660, 27475, ConsoleColor.White);
+
+        List<PointF> asteroidField = new List<PointF>();
 
         List<Planet> planets = SolarSystemFactory.CreatePlanets();
 
@@ -38,7 +42,7 @@ namespace SolarSystemGUI
 
             this.MouseClick += Form1_MouseClick;
             planets = SolarSystemFactory.CreatePlanets();
-
+            CreateAsteroidField();
 
             engine.DoTick += UpdateSimulation;
             engine.Start();
@@ -74,6 +78,25 @@ namespace SolarSystemGUI
 
         }
 
+        private void CreateAsteroidField()
+        {
+            asteroidField.Clear();
+            Random rnd = new Random();
+            for (int i = 0; i < 300; i++)
+            {
+                float angle = (float)(rnd.NextDouble() * Math.PI * 2);
+
+                float orbitRadius = (float)(320 + rnd.NextDouble() * 90);
+
+                float x = (float)(Math.Cos(angle) * orbitRadius);
+                float y = (float)(Math.Sin(angle) * orbitRadius);
+
+                float thickness = (float)(rnd.NextDouble() * 40 - 20);
+
+                asteroidField.Add(new PointF(x, y + thickness));
+            }
+        }
+
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -93,6 +116,28 @@ namespace SolarSystemGUI
             float minOrbitRadius = sunSize / 2 + 20;
 
             g.FillEllipse(Brushes.Yellow, centerX - sunSize / 2, centerY - sunSize / 2, sunSize, sunSize);
+
+            float beltRotationSpeed = 0.0002f;
+
+            foreach (PointF asteroid in asteroidField)
+            {
+                float rotationAngle = (float)time * beltRotationSpeed;
+
+                float rotatedX =
+                    asteroid.X * (float)Math.Cos(rotationAngle) -
+                    asteroid.Y * (float)Math.Sin(rotationAngle);
+
+                float rotatedY =
+                    asteroid.X * (float)Math.Sin(rotationAngle) +
+                    asteroid.Y * (float)Math.Cos(rotationAngle);
+
+                float asteroidX = centerX + rotatedX;
+                float asteroidY = centerY + rotatedY;
+
+                float size = 2.5f;
+
+                g.FillEllipse(Brushes.DarkGray, asteroidX - size / 2, asteroidY - size / 2, size, size);
+            }
 
             Font labelFont = new Font("Arial", 10);
             g.DrawString(theSun.Name, labelFont, Brushes.White, centerX + sunSize / 2 + 5, centerY - 10);
@@ -339,7 +384,39 @@ namespace SolarSystemGUI
                 else
                     g.FillEllipse(Brushes.OrangeRed, p.Position.X - p.Size / 2, p.Position.Y - p.Size / 2, p.Size, p.Size);
             }
+
+            var (px, py, pAngle) = pluto.CalculatePos(time);
+
+            double plutoAngleRadians = Math.Atan2(py, px);
+
+            float plutoOrbitRadius =
+                minOrbitRadius + (float)(Math.Pow(pluto.OrbitalRadius / maxOrbitalRadius, distanceExponent) * availableRadius);
+
+            float plutoSize = 16f;
+
+            float plutoX = centerX + (float)(plutoOrbitRadius * Math.Cos(plutoAngleRadians));
+            float plutoY = centerY + (float)(plutoOrbitRadius * Math.Sin(plutoAngleRadians));
+
+            if (ShowIcon)
+            {
+                g.DrawEllipse(
+                    Pens.Gray,
+                    centerX - plutoOrbitRadius,
+                    centerY - plutoOrbitRadius,
+                    plutoOrbitRadius * 2,
+                    plutoOrbitRadius * 2
+                );
+            }
+
+            g.FillEllipse(Brushes.LightGray, plutoX - plutoSize / 2, plutoY - plutoSize / 2, plutoSize, plutoSize);
+
+            if (showLabels)
+            {
+                g.DrawString("Pluto", labelFont, Brushes.White, plutoX + plutoSize / 2 + 4, plutoY - plutoSize / 2);
+            }
         }
+
+
 
         private void ExplodePlanet(Planet planet)
         {
