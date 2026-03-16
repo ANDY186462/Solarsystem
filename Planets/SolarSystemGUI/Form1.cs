@@ -350,8 +350,8 @@ namespace SolarSystemGUI
                     if (rect.Contains(mousePos))
                     {
                         ExplodePlanet(planet);
-                        Invalidate(); // Trigge repaint for å se eksplosjonen
-                        break; // Bare spreng én planet
+                        Invalidate(); 
+                        break; 
                     }
                 }
             }

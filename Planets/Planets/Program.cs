@@ -187,7 +187,7 @@ namespace SpaceSim
                 };
 
 
-            Console.Write("Enter amount of hours: ");
+            Console.Write("Enter amount of days: ");
             double time = double.Parse(Console.ReadLine());
 
             Console.Write("Enter name of spaceobject: ");

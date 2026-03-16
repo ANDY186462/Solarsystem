@@ -5,10 +5,12 @@ namespace PlanetGUI
 {
     public partial class Form1 : Form
     {
+
         private Planet selectedPlanet;
         private Simulation engine = new Simulation();
         private double time = 0;
         private bool showLabels = true;
+        private Moon moon;
 
         public Form1(Planet planet)
         {
@@ -25,13 +27,19 @@ namespace PlanetGUI
             engine.Start();
 
             this.KeyDown += Form1_KeyDown;
+            
+            
         }
+
 
         private void UpdateSimulation(double newTime)
         {
             time = newTime;
             Invalidate();
         }
+
+
+
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -147,9 +155,9 @@ namespace PlanetGUI
                             moonOrbitRadius * 2
                         );
                     }
-                    double angle = (2 * Math.PI / moon.OrbitalPeriod) * time;
+                    double angle = (2 * Math.PI / moon.OrbitalPeriod/100) * time; 
 
-                    float moonX = centerX + (float)(moonOrbitRadius * Math.Cos(angle));
+					float moonX = centerX + (float)(moonOrbitRadius * Math.Cos(angle));
                     float moonY = centerY + (float)(moonOrbitRadius * Math.Sin(angle));
 
                     g.FillEllipse(
